@@ -1,0 +1,1995 @@
+﻿<Window x:Class="OnlineSellingSystem.View.MainWindowAdmin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OnlineSellingSystem.View"
+        mc:Ignorable="d"
+        Title="Admin" Height="800" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Images/icon.ico"
+        Loaded="MainWindowAdminLoaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!--Navigation Menu-->
+        <Border Grid.Column="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7" >
+                    <GradientStop Color="#023047" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <!--Header-->
+                    <StackPanel Orientation="Vertical"
+                        Margin="20,30,0,30"
+                        HorizontalAlignment="Left">
+                        <Image Source="/Images/logo2.png"
+                       Height="100"/>
+                        <TextBlock Text="Hi !" FontSize="20"
+                               Foreground="White" FontWeight="Bold"
+                               Margin="0,10,0,0"/>
+                        <TextBlock x:Name="adminName"
+                               Text="Admin Name"
+                               FontSize="20"
+                               Foreground="White" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <!--Menu Button-->
+                    <!--Admin Management-->
+                    <RadioButton x:Name="btnAdminManagement"
+                             Click="btnAdminManagementChecked"
+                             Style="{StaticResource menuButton}"
+                             Tag="#fb8500">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/admin.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Admin Management" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                    <!--Employee Management-->
+                    <RadioButton Name="btnEmployeeManagement"
+                             Style="{StaticResource menuButton}"
+                             Click="btnEmployeeManagementChecked"
+                             Tag="#f35900">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/employee.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Employee Management" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <!--Customer Management-->
+                    <RadioButton Name="btnCustomerManagement"
+                             Style="{StaticResource menuButton}"
+                             Click="btnCustomerManagementChecked"
+                             Tag="#f35900">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/customer.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Customer Management" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <!--Driver Management-->
+                    <RadioButton Name="btnDriverManagement"
+                             Style="{StaticResource menuButton}"
+                             Click="btnDriverManagementChecked"
+                             Tag="#f35900">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/delivery.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Driver Management" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <!--Partner Management-->
+                    <RadioButton Name="btnPartnerManagement"
+                             Style="{StaticResource menuButton}"
+                             Click="btnPartnerManagementChecked"
+                             Tag="#f35900">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/partner.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Partner Management" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+                <!--Log out Button-->
+                <StackPanel Grid.Row="1"
+                            DockPanel.Dock="Bottom"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            MouseDown="logoutButton">
+                    <Image Source="/Images/logout.png"
+                           Width="15"
+                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock VerticalAlignment="Center" Text="Log out" Foreground="White" FontSize="18" FontWeight="Medium"/>
+                </StackPanel>
+            </Grid>
+
+        </Border>
+
+        <!--Content-->
+        <!--Content Admin Management-->
+        <Border Name="contentAdmin"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/admin.png"
+                               Width="40"/>
+                        <TextBlock Text="Admin Management"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Content Section-->
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <!--Admin List-->
+                    <DockPanel LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Top" Text="Admins List" FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,10,0,5"/>
+                        <DataGrid Grid.Row="0" Name="contentAdminAdminDataGrid"
+                                  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding Id}"/>
+
+                                <DataGridTextColumn Header="Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Fullname}"/>
+
+                                <DataGridTextColumn Header="Phone Number" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding PhoneNumber}"/>
+                                <DataGridTextColumn Header="Email" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Email}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                    <!--Page navigation-->
+                    <Border Grid.Row="1"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" Height="35">
+                            <Button x:Name="contentaAdminPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contentaAdminPreviousButton_Click">
+                                <Button.Content>
+                                    <Image Source="/Images/previous.png" Height="16"/>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Name="contentOrdersPartnerListPagingInfo" Margin="10">
+                                            <Run Name="adminListCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="adminListTotalPage"  d:Text="100"/>
+                            </TextBlock>
+                            <Button x:Name="contentaAdminNextButton"
+                                        Width="25" Height="25"
+                                        Click="contentaAdminNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                <Button.Content>
+                                    <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!--Option-->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--Options-->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Options" FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,10,0,5"/>
+                            <!--Add-->
+                            <Button HorizontalAlignment="Left"
+                                Click="contentAdminAddButton_Click"
+                                Width="150"
+                                Padding="5,10,5,10"
+                                Background="#023047"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/add.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Add" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <!--Remove-->
+                            <Button HorizontalAlignment="Left"
+                                Click="contentAdminRemoveButton_Click"
+                                Width="150"
+                                Padding="5,10,5,10"
+                                Background="#ffb703"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/trash.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Remove" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <!--Update-->
+                            <Button HorizontalAlignment="Left"
+                                Click="contentAdminUpdateButton_Click"
+                                Width="150"
+                                Padding="5,10,5,10"
+                                Background="#fb8500"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/update.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Update" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                        <!--Content Options-->
+                        <!--Content Add-->
+                        <StackPanel x:Name="contentAdminOptionsAdd"
+                                    Visibility="Visible"
+                                    Grid.Column="1" Orientation="Vertical" Margin="0,45,0,0">
+                            <!--Add ID-->
+
+                            <!--Add Name And PhoneNumber-->
+                            <StackPanel Orientation="Horizontal">
+                                <!--Name-->
+                                <TextBlock Text="Name" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addAdminName" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="Nguyen Van Hieu" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=addAdminName}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <!--Phone Number-->
+                                <TextBlock Text="Phone" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="31,0,0,0"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addAdminPhone" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="0931902050" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=addAdminPhone}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Add Email And CitizenID-->
+                            <StackPanel Orientation="Horizontal">
+                                <!--Email-->
+                                <TextBlock Text="Email" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label Margin="3,0,0,0">
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addAdminEmail" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="20120084@student.hcmus.edu.vn" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=addAdminEmail}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <!--CitizenID-->
+                                <TextBlock Text="CitizenID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="14,0,0,0"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addAdminCitizenID" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="01235824847" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=addAdminCitizenID}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Add Done Button-->
+                            <Button HorizontalAlignment="Center"
+                                Click="contentAdminAddDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#023047"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/add.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                        <!--Content Remove-->
+                        <StackPanel x:Name="contentAdminOptionsRemove"
+                                    Visibility="Collapsed"
+                                    Grid.Column="1" Orientation="Vertical" Margin="0,45,0,0">
+                            <!--Remove ID-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label Margin="25,0,0,0">
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="removeAdminID" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="ID" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=removeAdminID}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Remove Done Button-->
+                            <Button HorizontalAlignment="Left"
+                                Click="contentAdminRemoveDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#ffb703"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="49,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/trash.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                        <!--Content Update-->
+                        <StackPanel x:Name="contentAdminOptionsUpdate"
+                                    Visibility="Collapsed"
+                                    Grid.Column="1" Orientation="Vertical" Margin="0,45,0,0">
+                            <!--Update ID-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label Margin="25,0,0,0">
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                 x:Name="updateAdminID" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="Binding ID to here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateAdminID}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <Button Name="updateAdminIdButton" Content="Search ID" Height="28" Width="100"
+                                        Margin="20 0 0 0"
+                                        Click="updateAdminButton_Click"/>
+                            </StackPanel>
+                            <!--Add Name And PhoneNumber-->
+                            <StackPanel Orientation="Horizontal">
+                                <!--Name-->
+                                <TextBlock Text="Name" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateAdminName" Margin="5"/>
+                                        <TextBlock x:Name="placeholderUpdateAdminName" IsHitTestVisible="False" FontSize="8" Text="Binding Name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateAdminName}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <!--Phone Number-->
+                                <TextBlock Text="Phone" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="31,0,0,0"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateAdminPhone" Margin="5"/>
+                                        <TextBlock x:Name="placeholderUpdateAdminPhone" IsHitTestVisible="False" FontSize="8" Text="Binding Phone" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateAdminPhone}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Add Email And CitizenID-->
+                            <StackPanel Orientation="Horizontal">
+                                <!--Email-->
+                                <TextBlock Text="Email" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label Margin="3,0,0,0">
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateAdminEmail" Margin="5"/>
+                                        <TextBlock x:Name="placeholderUpdateAdminEmail" IsHitTestVisible="False" FontSize="8" Text="Binding Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateAdminEmail}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <!--CitizenID-->
+                                <TextBlock Text="CitizenID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="14,0,0,0"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateAdminCitizenID" Margin="5"/>
+                                        <TextBlock Name="placeholderUpdateAdminCitizenID" IsHitTestVisible="False" FontSize="8" Text="Biding ID" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateAdminCitizenID}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Add Done Button-->
+                            <Button HorizontalAlignment="Center"
+                                Click="contentAdminUpdateDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#fb8500"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/update.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Border>
+
+        <!--Content Employee Management-->
+        <Border Name="contentEmployee"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/employee.png"
+                               Width="40"/>
+                        <TextBlock Text="Employee Management"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Content Section-->
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <!--Employee List-->
+                    <DockPanel LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Top" Text="Employees List" FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,10,0,5"/>
+                        <DataGrid Grid.Row="0" Name="contentEmployeeDataGrid"
+                                  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding Id}"/>
+
+                                <DataGridTextColumn Header="Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Fullname}"/>
+
+                                <DataGridTextColumn Header="Phone Number" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding PhoneNumber}"/>
+                                <DataGridTextColumn Header="Email" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Email}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                    <!--Page navigation-->
+                    <Border Grid.Row="1"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" Height="35">
+                            <Button x:Name="contentaEmployeePreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contentaEmployeePreviousButton_Click">
+                                <Button.Content>
+                                    <Image Source="/Images/previous.png" Height="16"/>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Name="contentEmployeesListPagingInfo" Margin="10">
+                                            <Run Name="employeeListCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="employeeListTotalPage" d:Text="100"/>
+                            </TextBlock>
+                            <Button x:Name="contentaEmployeeNextButton"
+                                        Width="25" Height="25"
+                                        Click="contentaEmployeeNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                <Button.Content>
+                                    <Image Source="/Images/next.png"
+                                               Height="16"/>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!--Option-->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--Options-->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Options" FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,10,0,5"/>
+                            <!--Add-->
+                            <Button HorizontalAlignment="Left"
+                                Click="contentEmployeeAddButton_Click"
+                                Width="150"
+                                Padding="5,10,5,10"
+                                Background="#023047"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/add.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Add" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <!--Remove-->
+                            <Button HorizontalAlignment="Left"
+                                Click="contentEmployeeRemoveButton_Click"
+                                Width="150"
+                                Padding="5,10,5,10"
+                                Background="#ffb703"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/trash.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Remove" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <!--Update-->
+                            <Button HorizontalAlignment="Left"
+                                Click="contentEmployeeUpdateButton_Click"
+                                Width="150"
+                                Padding="5,10,5,10"
+                                Background="#fb8500"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/update.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Update" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                        <!--Content Options-->
+                        <!--Content Add-->
+                        <StackPanel x:Name="contentEmployeeOptionsAdd"
+                                    Visibility="Collapsed"
+                                    Grid.Column="1" Orientation="Vertical" Margin="0,45,0,0">
+
+                            <!--Add Name And PhoneNumber-->
+                            <StackPanel Orientation="Horizontal">
+                                <!--Name-->
+                                <TextBlock Text="Name" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addEmployeeName" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="Nguyen Van Hieu" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=addEmployeeName}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <!--Phone Number-->
+                                <TextBlock Text="Phone" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="31,0,0,0"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addEmployeePhone" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="0931902050" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=addEmployeePhone}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Add Email And CitizenID-->
+                            <StackPanel Orientation="Horizontal">
+                                <!--Email-->
+                                <TextBlock Text="Email" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label Margin="3,0,0,0">
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addEmployeeEmail" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="20120084@student.hcmus.edu.vn" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=addEmployeeEmail}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <!--CitizenID-->
+                                <TextBlock Text="CitizenID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="14,0,0,0"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addEmployeeCitizenID" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="01235824847" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=addEmployeeCitizenID}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Add Done Button-->
+                            <Button HorizontalAlignment="Center"
+                                Click="contentEmployeeAddDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#023047"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/add.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                        <!--Content Remove-->
+                        <StackPanel x:Name="contentEmployeeOptionsRemove"
+                                    Visibility="Collapsed"
+                                    Grid.Column="1" Orientation="Vertical" Margin="0,45,0,0">
+                            <!--Remove ID-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label Margin="25,0,0,0">
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="removeEmployeeID" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="ID" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=removeEmployeeID}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Remove Done Button-->
+                            <Button HorizontalAlignment="Left"
+                                Click="contentEmployeeRemoveDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#ffb703"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="49,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/trash.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                        <!--Content Update-->
+                        <StackPanel x:Name="contentEmployeeOptionsUpdate"
+                                    Visibility="Collapsed"
+                                    Grid.Column="1" Orientation="Vertical" Margin="0,45,0,0">
+                            <!--Update ID-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label Margin="25,0,0,0">
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateEmployeeID" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="Binding ID to here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateEmployeeID}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <Button Content="Search ID" Height="28" Width="100"
+                                        Margin="20 0 0 0" Click="updateEmployeeID_Click"/>
+                            </StackPanel>
+                            <!--Add Name And PhoneNumber-->
+                            <StackPanel Orientation="Horizontal">
+                                <!--Name-->
+                                <TextBlock Text="Name" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateEmployeeName" Margin="5"/>
+                                        <TextBlock Name="placeholderUpdateEmployeeName" IsHitTestVisible="False" FontSize="8" Text="Binding Name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateEmployeeName}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <!--Phone Number-->
+                                <TextBlock Text="Phone" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="31,0,0,0"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateEmployeePhone" Margin="5"/>
+                                        <TextBlock x:Name="placeholderUpdateEmployeePhone" IsHitTestVisible="False" FontSize="8" Text="Binding Phone" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateEmployeePhone}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Add Email And CitizenID-->
+                            <StackPanel Orientation="Horizontal">
+                                <!--Email-->
+                                <TextBlock Text="Email" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label Margin="3,0,0,0">
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateEmployeeEmail" Margin="5"/>
+                                        <TextBlock x:Name="placeholderUpdateEmployeeEmail" IsHitTestVisible="False" FontSize="8" Text="Binding Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateEmployeeEmail}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <!--CitizenID-->
+                                <TextBlock Text="CitizenID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="14,0,0,0"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateEmployeeCitizenID" Margin="5"/>
+                                        <TextBlock x:Name="placeholderUpdateEmployeeCitizenId" IsHitTestVisible="False" FontSize="8" Text="Biding ID" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=updateEmployeeCitizenID}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                            </StackPanel>
+                            <!--Add Done Button-->
+                            <Button HorizontalAlignment="Center"
+                                Click="contentEmployeeUpdateDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#fb8500"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/update.png"  Height="15" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Border>
+
+        <!--Content Customer Management-->
+        <Border Name="contentCustomer"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/customer.png"
+                               Width="40"/>
+                        <TextBlock Text="Customer Management"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Content Section-->
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--Customer List-->
+                    <DockPanel Grid.Row="0" LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Top" Text="Customers List" Foreground="white" FontSize="15" FontWeight="Medium" Margin="10,0,0,5"/>
+                        <DataGrid Name="contentCustomerDataGrid"
+                                  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding Id}"/>
+
+                                <DataGridTextColumn Header="Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Fullname}"/>
+
+                                <DataGridTextColumn Header="Phone Number" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding PhoneNumber}"/>
+                                <DataGridTextColumn Header="Email" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Email}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                    <!--Page Navigation-->
+                    <Border Grid.Row="1"
+                            HorizontalAlignment="Right"
+                            BorderBrush="#dee4ec" BorderThickness="1"
+                            CornerRadius="5" Padding="5" Background="White"
+                            Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" Height="35">
+                            <Button x:Name="contentaCustomerPreviousButton"
+                                    Width="25" Height="25"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    BorderBrush="Transparent"
+                                    Click="contentaCustomerPreviousButton_Click">
+                                <Button.Content>
+                                    <Image Source="/Images/previous.png" Height="16"/>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Name="contentCustomersListPagingInfo" Margin="10">
+                                    <Run Name="customerListCurrentPage" d:Text="3"/>
+                                    / 
+                                    <Run Name="customerListTotalPage" d:Text="100"/>
+                            </TextBlock>
+                            <Button x:Name="contentaCustomerNextButton"
+                                    Width="25" Height="25"
+                                    Click="contentCustomerNextButton_Click"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    BorderBrush="Transparent">
+                                <Button.Content>
+                                    <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <!--Update Employee-->
+                    <!--Content Update-->
+                    <StackPanel x:Name="contentCustomerUpdate"
+                                    Grid.Row="2" Orientation="Vertical" Margin="0,45,0,0">
+                        <TextBlock Text="Update Customer" Foreground="White" FontSize="15" FontWeight="Medium" Margin="0,0,0,5"/>
+                        <!--Update ID-->
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label Margin="25,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateCustomerID" Margin="5"/>
+                                    <TextBlock IsHitTestVisible="False" FontSize="8" Text="Binding ID to here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateCustomerID}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <Button Content="Serach ID" Height="28" Width="100"
+                                    Margin="20 0 0 0"
+                                    Click="contentCustomerSearID_Click"/>
+                        </StackPanel>
+                        <!--Update Name And PhoneNumber-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Name-->
+                            <TextBlock Text="Name" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label>
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateCustomerName" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateCustomerName" IsHitTestVisible="False" FontSize="8" Text="Binding Name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateCustomerName}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--Phone Number-->
+                            <TextBlock Text="Phone" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="24,0,0,0"/>
+                            <Label Margin="15,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateCustomerPhone" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateCustomerPhone" IsHitTestVisible="False" FontSize="8" Text="Binding Phone" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateCustomerPhone}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                        </StackPanel>
+                        <!--Add Email And CitizenID-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Email-->
+                            <TextBlock Text="Email" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateCustomerEmail" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateCustomerEmail" IsHitTestVisible="False" FontSize="8" Text="Binding Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateCustomerEmail}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--House number-->
+                            <TextBlock Text="No.Road" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="24,0,0,0"/>
+                            <Label>
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateCustomerNoR" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateCustomerNoR" IsHitTestVisible="False" FontSize="8" Text="Biding house number" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateCustomerNoR}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                        </StackPanel>
+                        <!--Road, Ward, District, City-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Road-->
+                            <TextBlock Text="Road" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateCustomerRoad" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateCustomerRoad" IsHitTestVisible="False" FontSize="8" Text="Binding Road" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateCustomerRoad}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--Ward-->
+                            <TextBlock Text="Ward" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="26,0,0,0"/>
+                            <Label Margin="22,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateCustomerWard" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateCustomerWard" IsHitTestVisible="False" FontSize="8" Text="Binding Ward" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateCustomerWard}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--District-->
+                            <TextBlock Text="District" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateCustomerAddressDistrict" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateCustomerAddressDistrict" IsHitTestVisible="False" FontSize="8" Text="Binding District" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateCustomerAddressDistrict}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--City-->
+                            <TextBlock Text="City" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateCustomerCity" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateCustomerCity" IsHitTestVisible="False" FontSize="8" Text="Binding City" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateCustomerCity}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                        </StackPanel>
+                        <!--Add Done Button-->
+                        <Button HorizontalAlignment="Left"
+                                Click="contentCustomerUpdateDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#fb8500"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/update.png"  Height="15" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Border>
+
+        <!--Content Driver Management-->
+        <Border Name="contentDriver"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/delivery.png"
+                               Width="40"/>
+                        <TextBlock Text="Driver Management"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Content Section-->
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--Driver List-->
+                    <DockPanel Grid.Row="0" LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Top" Text="Drivers List" Foreground="white" FontSize="15" FontWeight="Medium" Margin="10,0,0,5"/>
+                        <DataGrid Name="contentDriverDataGrid"
+                                  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding Id}"/>
+
+                                <DataGridTextColumn Header="Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Fullname}"/>
+
+                                <DataGridTextColumn Header="Phone Number" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding PhoneNumber}"/>
+                                <DataGridTextColumn Header="Email" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Email}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                    <!--Page Navigation-->
+                    <Border Grid.Row="1"
+                            HorizontalAlignment="Right"
+                            BorderBrush="#dee4ec" BorderThickness="1"
+                            CornerRadius="5" Padding="5" Background="White"
+                            Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" Height="35">
+                            <Button x:Name="contentaDriverPreviousButton"
+                                    Width="25" Height="25"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    BorderBrush="Transparent"
+                                    Click="contentaDriverPreviousButton_Click">
+                                <Button.Content>
+                                    <Image Source="/Images/previous.png" Height="16"/>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Name="contentDriversListPagingInfo" Margin="10">
+                                    <Run Name="driverListCurrentPage" d:Text="3"/>
+                                    / 
+                                    <Run Name="driverListTotalPage" Text="100"/>
+                            </TextBlock>
+                            <Button x:Name="contentaDriverNextButton"
+                                    Width="25" Height="25"
+                                    Click="contentDriverNextButton_Click"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    BorderBrush="Transparent">
+                                <Button.Content>
+                                    <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <!--Update Employee-->
+                    <!--Content Update-->
+                    <StackPanel x:Name="contentDriverUpdate"
+                                    Grid.Row="2" Orientation="Vertical" Margin="0,45,0,0">
+                        <TextBlock Text="Update Driver" Foreground="White" FontSize="15" FontWeight="Medium" Margin="0,0,0,5"/>
+                        <!--Update ID-->
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label Margin="25,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverID" Margin="5"/>
+                                    <TextBlock IsHitTestVisible="False" FontSize="8" Text="Binding ID to here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverID}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <Button Content="Serach ID" Height="28" Width="100"
+                                    Margin="20 0 0 0"
+                                    Click="contentDriverSearhID_Click"/>
+                        </StackPanel>
+                        <!--Update Name And PhoneNumber-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Name-->
+                            <TextBlock Text="Name" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label>
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverName" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateDriverName" IsHitTestVisible="False" FontSize="8" Text="Binding Name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverName}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--Phone Number-->
+                            <TextBlock Text="Phone" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="24,0,0,0"/>
+                            <Label Margin="15,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverPhone" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateDriverPhone" IsHitTestVisible="False" FontSize="8" Text="Binding Phone" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverPhone}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                        </StackPanel>
+                        <!--Add Email And CitizenID-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Email-->
+                            <TextBlock Text="Email" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverEmail" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateDriverEmail" IsHitTestVisible="False" FontSize="8" Text="Binding Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverEmail}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--License Plate-->
+                            <TextBlock Text="License" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="24,0,0,0"/>
+                            <Label>
+                                <Grid Margin="8,0,0,0">
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverLicensePlate" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateDriverLicensePlate" IsHitTestVisible="False" FontSize="8" Text="Biding house number" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverLicensePlate}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--House number-->
+                            <TextBlock Text="No.Road" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="16,0,0,0"/>
+                            <Label>
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverNoR" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateDriverNoR" IsHitTestVisible="False" FontSize="8" Text="Biding house number" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverNoR}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                        </StackPanel>
+                        <!--Road, Ward, District, City-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Road-->
+                            <TextBlock Text="Road" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverRoad" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateDriverRoad" IsHitTestVisible="False" FontSize="8" Text="Binding Road" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverRoad}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--Ward-->
+                            <TextBlock Text="Ward" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="26,0,0,0"/>
+                            <Label Margin="22,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverWard" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateDriverWard" IsHitTestVisible="False" FontSize="8" Text="Binding Ward" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverWard}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--District-->
+                            <TextBlock Text="District" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverAddressDistrict" Margin="12,5,5,5"/>
+                                    <TextBlock x:Name="placeholderUpdateDriverAddressDistrict" IsHitTestVisible="False" FontSize="8" Text="Binding District" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverAddressDistrict}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--City-->
+                            <TextBlock Text="City" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateDriverCity" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdateDriverCity" IsHitTestVisible="False" FontSize="8" Text="Binding City" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updateDriverCity}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                        </StackPanel>
+                        <!--Add Done Button-->
+                        <Button HorizontalAlignment="Left"
+                                Click="contentDiverUpdateDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#fb8500"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/update.png"  Height="15" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Border>
+
+        <!--Content Partner Management-->
+        <Border Name="contentPartner"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/partner.png"
+                               Width="40"/>
+                        <TextBlock Text="Partner Management"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Content Section-->
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--Partner List-->
+                    <DockPanel Grid.Row="0" LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Top" Text="Partners List" Foreground="white" FontSize="15" FontWeight="Medium" Margin="10,0,0,5"/>
+                        <DataGrid Name="contentPartnerDataGrid"
+                                  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding Id}"/>
+
+                                <DataGridTextColumn Header="Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Fullname}"/>
+
+                                <DataGridTextColumn Header="Phone Number" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding PhoneNumber}"/>
+                                <DataGridTextColumn Header="Email" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Email}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                    <!--Page Navigation-->
+                    <Border Grid.Row="1"
+                            HorizontalAlignment="Right"
+                            BorderBrush="#dee4ec" BorderThickness="1"
+                            CornerRadius="5" Padding="5" Background="White"
+                            Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" Height="35">
+                            <Button x:Name="contentaPartnerPreviousButton"
+                                    Width="25" Height="25"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    BorderBrush="Transparent"
+                                    Click="contentaPartnerPreviousButton_Click">
+                                <Button.Content>
+                                    <Image Source="/Images/previous.png" Height="16"/>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Name="contentPartnersListPagingInfo" Margin="10">
+                                    <Run Name="partnerListCurrentPage" d:Text="3"/>
+                                    / 
+                                    <Run Name="partnerListTotalPage" d:Text="100"/>
+                            </TextBlock>
+                            <Button x:Name="contentaPartnerNextButton"
+                                    Width="25" Height="25"
+                                    Click="contentPartnerNextButton_Click"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    BorderBrush="Transparent">
+                                <Button.Content>
+                                    <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <!--Update Employee-->
+                    <!--Content Update-->
+                    <StackPanel x:Name="contentPartnerUpdate"
+                                    Grid.Row="2" Orientation="Vertical" Margin="0,45,0,0">
+                        <TextBlock Text="Update Partner" Foreground="White" FontSize="15" FontWeight="Medium" Margin="0,0,0,5"/>
+                        <!--Update ID-->
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label Margin="25,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updatePartnerID" Margin="5"/>
+                                    <TextBlock IsHitTestVisible="False" FontSize="8" Text="Binding ID to here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updatePartnerID}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <Button Content="Serach ID" Height="28" Width="100"
+                                    Margin="20 0 0 0"
+                                    Click="contentPartnerSearID_Click"/>
+                        </StackPanel>
+                        <!--Update Name And PhoneNumber-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Name-->
+                            <TextBlock Text="Name" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label>
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updatePartnerName" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdatePartnerName" IsHitTestVisible="False" FontSize="8" Text="Binding Name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updatePartnerName}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--Phone Number-->
+                            <TextBlock Text="Phone" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="24,0,0,0"/>
+                            <Label Margin="15,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updatePartnerPhone" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdatePartnerPhone" IsHitTestVisible="False" FontSize="8" Text="Binding Phone" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updatePartnerPhone}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                        </StackPanel>
+                        <!--Add Email And CitizenID-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Email-->
+                            <TextBlock Text="Email" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updatePartnerEmail" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdatePartnerEmail" IsHitTestVisible="False" FontSize="8" Text="Binding Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updatePartnerEmail}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--House number-->
+                            <TextBlock Text="No.Road" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="24,0,0,0"/>
+                            <Label>
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updatePartnerNoR" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdatePartnerNoR" IsHitTestVisible="False" FontSize="8" Text="Biding house number" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updatePartnerNoR}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                        </StackPanel>
+                        <!--Road, Ward, District, City-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Road-->
+                            <TextBlock Text="Road" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updatePartnerRoad" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdatePartnerRoad" IsHitTestVisible="False" FontSize="8" Text="Binding Road" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updatePartnerRoad}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--Ward-->
+                            <TextBlock Text="Ward" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="26,0,0,0"/>
+                            <Label Margin="22,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updatePartnerWard" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdatePartnerWard" IsHitTestVisible="False" FontSize="8" Text="Binding Ward" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updatePartnerWard}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--District-->
+                            <TextBlock Text="District" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updatePartnerAddressDistrict" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdatePartnerAddressDistrict" IsHitTestVisible="False" FontSize="8" Text="Binding District" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updatePartnerAddressDistrict}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <!--City-->
+                            <TextBlock Text="City" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            <Label Margin="3,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updatePartnerCity" Margin="5"/>
+                                    <TextBlock x:Name="placeholderUpdatePartnerCity" IsHitTestVisible="False" FontSize="8" Text="Binding City" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=updatePartnerCity}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                        </StackPanel>
+                        <!--Add Done Button-->
+                        <Button HorizontalAlignment="Left"
+                                Click="contentPartnerUpdateDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#fb8500"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/update.png"  Height="15" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

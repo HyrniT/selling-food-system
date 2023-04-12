@@ -1,0 +1,825 @@
+﻿<Window x:Class="OnlineSellingSystem.View.MainWindowEmployee"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OnlineSellingSystem.View"
+        mc:Ignorable="d"
+        Title="Employee" Height="800" Width="1000"
+        Loaded="MainWindowEmployeeLoaded"
+        Icon="/Images/icon.ico"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Navigation Menu-->
+        <Border Grid.Column="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7" >
+                    <GradientStop Color="#023047" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <!--Header-->
+                    <StackPanel Orientation="Vertical"
+                        Margin="20,30,0,30"
+                        HorizontalAlignment="Left">
+                        <Image Source="/Images/logo2.png"
+                       Height="100"/>
+                        <TextBlock Text="Hi !" FontSize="20"
+                               Foreground="White" FontWeight="Bold"
+                               Margin="0,10,0,0"/>
+                        <TextBlock x:Name="employeeName"
+                               Text="Employee Name"
+                               FontSize="20"
+                               Foreground="White" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <!--Menu Button-->
+                    <!--Partner Management-->
+                    <RadioButton x:Name="btnPartnerManagement"
+                             Click="btnPartnerManagementChecked"
+                             Style="{StaticResource menuButton}"
+                             Tag="#fb8500">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/partner.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Shop Management" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                    <!--Contract-->
+                    <RadioButton Name="btnContractManagement"
+                             Style="{StaticResource menuButton}"
+                             Click="btnContractManagementChecked"
+                             Tag="#f35900">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/contract.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Contract Management" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+                <!--Log out Button-->
+                <StackPanel Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            MouseDown="logoutButton">
+                    <Image Source="/Images/logout.png"
+                           Width="15"
+                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock VerticalAlignment="Center" Text="Log out" Foreground="White" FontSize="18" FontWeight="Medium"/>
+                </StackPanel>
+            </Grid>
+
+        </Border>
+        
+        <!--Main Section-->
+        <!--Main Section: Partner Management-->
+        <Border Name="contentPartnerManagement"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/partner.png"
+                               Width="40"/>
+                        <TextBlock Text="Partner Management"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Content Section-->
+                <ContentControl Grid.Row="1"
+                                Margin="50,30,40,20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
+                        <!--Partner List-->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Partners List-->
+                            <DockPanel Grid.Column="0" LastChildFill="True">
+                                <TextBlock DockPanel.Dock="Top"
+                                           Text="Partner List"
+                                           FontSize="18" FontWeight="Medium" Foreground="White" Margin="0,0,0,5"/>
+                                <DataGrid Name="contentPartnerManagementPartnerListView" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="35" Binding="{Binding Id}"/>
+                                        <DataGridTextColumn Header="Partner Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Fullname}"/>
+                                        <DataGridTextColumn Header="Phone Number" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding PhoneNumber}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                            <!--Branchs With Lowest Rating-->
+                            <DockPanel Grid.Column="2" LastChildFill="True">
+                                <TextBlock DockPanel.Dock="Top"
+                                           Text="Branchs With Lowest Rating"
+                                           FontSize="18" FontWeight="Medium" Foreground="White" Margin="0,0,0,5"/>
+                                <DataGrid Name="contentPartnerManagementPartnerLowestRatingListView" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="35" Binding="{Binding BranchId}"/>
+                                        <DataGridTextColumn Header="Branch Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding BranchName}"/>
+                                        <DataGridTextColumn Header="Partner ID" IsReadOnly="True" CanUserResize="False" Width="70" Binding="{Binding BranchPartnerId}"/>
+                                        <DataGridTextColumn Header="Partner Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding BranchPartnerName}"/>
+                                        <DataGridTextColumn Header="Star" IsReadOnly="True" CanUserResize="False" Width="40" Binding="{Binding BranchStar}"/>
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+                            </DockPanel>
+                        </Grid>
+                        <!--Pagination-->
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Pagination of partner list-->
+                            <Border Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                                <StackPanel Orientation="Horizontal" Height="35">
+                                    <Button x:Name="contentaEmployeePartnerListPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contentaEmployeePartnerListPreviousButton_Click">
+                                        <Button.Content>
+                                            <Image Source="/Images/previous.png" Height="16"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <TextBlock Name="contentaEmployeePartnerListPaginInfo" Margin="10">
+                                            <Run Name="partnerListCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="partnerListTotalPage"  d:Text="100"/>
+                                    </TextBlock>
+                                    <Button x:Name="contentaEmployeePartnerListNextButton"
+                                        Width="25" Height="25"
+                                        Click="contentaEmployeePartnerListNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                        <Button.Content>
+                                            <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <!--pagination of lowest rating-->
+                            <Border Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                                <StackPanel Orientation="Horizontal" Height="35">
+                                    <Button x:Name="contentaEmployeeLowestRatingPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contentaEmployeeLowestRatingPreviousButton_Click">
+                                        <Button.Content>
+                                            <Image Source="/Images/previous.png" Height="16"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <TextBlock Name="contentLowestRatingListPagingInfo" Margin="10">
+                                            <Run Name="lowestRatingListCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="lowestRatingListTotalPage"  d:Text="100"/>
+                                    </TextBlock>
+                                    <Button x:Name="contentaEmployeeLowestRatingNextButton"
+                                        Width="25" Height="25"
+                                        Click="contentaEmployeeLowestRatingNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                        <Button.Content>
+                                            <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        <!--Statistics-->
+                        <Grid Grid.Row="2">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Statistics"
+                                       FontSize="18" FontWeight="Medium" Foreground="White" Margin="0,20,0,0"/>
+                                <!--Input ID Partner-->
+                                <StackPanel Orientation="Horizontal" Margin="-10,0,0,10">
+                                    <Label>
+                                        <Grid>
+                                            <TextBox BorderThickness="2"  Width="250" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="inputPartnerID" Margin="5"/>
+                                            <TextBlock IsHitTestVisible="False" FontSize="16" Text="Input partner ID to see statistics" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Text, ElementName=inputPartnerID}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Label>
+                                    <DatePicker Name="partnerStatisticsDatePicker"
+                                                FontSize="18" Width="200" VerticalAlignment="Center" Margin="10,0,10,0"
+                                                SelectedDate="2022-12-26"></DatePicker>
+                                    <Button x:Name="contentPartnerManagementSeeStatistics"
+                                            Click="contentPartnerManagementSeeStatistics_Click"
+                                            Content="Ok"
+                                            Height="40" Width="100"
+                                            FontSize="18" FontWeight="Medium" Foreground="White"
+                                            BorderBrush="Transparent"
+                                            VerticalAlignment="Center"
+                                            Background="#fb8500"/>
+                                </StackPanel>
+                                <!--Statistics Result-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <!--Amount Of Customers-->
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <!--Per Day-->
+                                        <Border Grid.Column="0"
+                                                Width="500"
+                                                HorizontalAlignment="Left">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                                    <GradientStop Color="#439A97" Offset="0"/>
+                                                    <GradientStop Color="#62B6B7" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <StackPanel Orientation="Vertical">
+                                                <DockPanel LastChildFill="False">
+                                                    <TextBlock Text="Customers / Day"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20"/>
+                                                </DockPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="40,0,0,0">
+                                                    <TextBlock Text="#"
+                                                       FontSize="20" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                                    <TextBlock x:Name="customerPerDay" Text="0"
+                                                       FontSize="20" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 30"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                        <!--Per Month-->
+                                        <Border Grid.Column="2"
+                                                 Width="500"
+                                                HorizontalAlignment="Left">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                                    <GradientStop Color="#863A6F" Offset="0"/>
+                                                    <GradientStop Color="#D989B5" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <StackPanel Orientation="Vertical">
+                                                <DockPanel LastChildFill="False">
+                                                    <TextBlock Text="Customers / Month"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20"/>
+                                                </DockPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="40,0,0,0">
+                                                    <TextBlock Text="#"
+                                                       FontSize="20" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                                    <TextBlock x:Name="customerPerMonth" Text="0"
+                                                       FontSize="20" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 30"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                        <!--Per Year-->
+                                        <Border Grid.Column="4"
+                                                 Width="500"
+                                                HorizontalAlignment="Left">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                                    <GradientStop Color="#3F3B6C" Offset="0"/>
+                                                    <GradientStop Color="#9F73AB" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <StackPanel Orientation="Vertical">
+                                                <DockPanel LastChildFill="False">
+                                                    <TextBlock Text="Customers / Year"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20"/>
+                                                </DockPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="40,0,0,0">
+                                                    <TextBlock Text="#"
+                                                       FontSize="20" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                                    <TextBlock x:Name="customersPerYear" Text="0"
+                                                       FontSize="20" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 30"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+
+                                    <!--Revenue and Commission-->
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <!--Revenue Of Partner-->
+                                        <Border Grid.Column="0"
+                                                HorizontalAlignment="Left"
+                                                Width="1000">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                                    <GradientStop Color="#864000" Offset="0"/>
+                                                    <GradientStop Color="#FF7A00" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <StackPanel Orientation="Vertical">
+                                                <DockPanel LastChildFill="False">
+                                                    <TextBlock Text="Revenue Of Partner"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20,10,20,10"/>
+                                                </DockPanel>
+                                                <!--Day-->
+                                                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                                    <TextBlock Text="Day"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       Margin="40,0,10,10"/>
+                                                    <TextBlock Text="$"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="44,0,10,10"/>
+                                                    <TextBlock x:Name="revenueOfPartnerDay" Text="0"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 10"/>
+                                                </StackPanel>
+                                                <!--Month-->
+                                                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                                    <TextBlock Text="Month"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       Margin="40,0,10,10"/>
+                                                    <TextBlock Text="$"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                                    <TextBlock x:Name="revenueOfPartnerMonth" Text="0"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 10"/>
+                                                </StackPanel>
+                                                <!--Year-->
+                                                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                                    <TextBlock Text="Year"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       Margin="40,0,10,10"/>
+                                                    <TextBlock Text="$"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="39,0,10,10"/>
+                                                    <TextBlock x:Name="revenueOfPartnerYear" Text="0"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 10"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                        <!--Commission From Partner-->
+                                        <Border Grid.Column="2"
+                                                HorizontalAlignment="Left"
+                                                Width="1000">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                                    <GradientStop Color="#931A25" Offset="0"/>
+                                                    <GradientStop Color="#E97171" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <StackPanel Orientation="Vertical">
+                                                <DockPanel LastChildFill="False">
+                                                    <TextBlock Text="Commission From Partner"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20,10,20,10"/>
+                                                </DockPanel>
+                                                <!--Day-->
+                                                <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
+                                                    <TextBlock Text="Day"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       Margin="40,0,10,10"/>
+                                                    <TextBlock Text="$"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="48,0,10,10"/>
+                                                    <TextBlock x:Name="commissionFromPartnerDay" Text="0"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 10"/>
+                                                </StackPanel>
+                                                <!--Month-->
+                                                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                                    <TextBlock Text="Month"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       Margin="40,0,10,10"/>
+                                                    <TextBlock Text="$"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                                    <TextBlock x:Name="commissionFromPartnerMonth" Text="0"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 10"/>
+                                                </StackPanel>
+                                                <!--Year-->
+                                                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                                    <TextBlock Text="Year"
+                                                       FontSize="18" FontWeight="Normal" Foreground="White"
+                                                       Margin="40,0,10,10"/>
+                                                    <TextBlock Text="$"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="39,0,10,10"/>
+                                                    <TextBlock x:Name="commissionFromPartnerYear" Text="0"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 10"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ContentControl>
+            </Grid>
+        </Border>
+
+        <!--Main Section: Contract Management-->
+        <Border Name="contentContractManagement"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/contract.png"
+                               Width="40"/>
+                        <TextBlock Text="Contract Management"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+                
+                <!--Content Section-->
+                <ContentControl Grid.Row="1"
+                                Margin="50,30,40,20">
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                                 <RowDefinition Height="*"/>
+                                 <RowDefinition Height="50"/>
+                                 <RowDefinition Height="50"/>
+                                 <RowDefinition Height="*"/>
+                                 <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <!--Contracts List And List of contracts due to expire-->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Contracts list-->
+                            <DockPanel Grid.Column="0" LastChildFill="True">
+                                <TextBlock Text="Contracts list" DockPanel.Dock="top"
+                                           FontSize="18" FontWeight="Medium" Foreground="White" Margin="0,0,0,5"/>
+                                <DataGrid Name="contentContractManagementContractListView" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="35" Binding="{Binding ContractId}"/>
+                                        <DataGridTextColumn Header="Partner ID" IsReadOnly="True" CanUserResize="False" Width="70" Binding="{Binding ContractPartnerId}"/>
+                                        <DataGridTextColumn Header="Partner Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ContractPartnerName}"/>
+                                        <DataGridTextColumn Header="Status" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ContractStatus}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                            <!--List of contracts due to expire-->
+                            <DockPanel Grid.Column="2" LastChildFill="True">
+                                <TextBlock Text="List of contracts due to expire" DockPanel.Dock="top"
+                                           FontSize="18" FontWeight="Medium" Foreground="White" Margin="0,0,0,5"/>
+                                <DataGrid Name="contentContractManagementContractDueToExpireListView" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="35" Binding="{Binding ContractId}"/>
+                                        <DataGridTextColumn Header="Partner ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ContractPartnerId}"/>
+                                        <DataGridTextColumn Header="Start Day" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ContractStartDay}"/>
+                                        <DataGridTextColumn Header="End Day" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ContractEndDay}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                        </Grid>
+                        <!--Pagingnation-->
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Pagination of contract list-->
+                            <Border Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                                <StackPanel Orientation="Horizontal" Height="35">
+                                    <Button x:Name="contractListPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contractListPreviousButton_Click">
+                                        <Button.Content>
+                                            <Image Source="/Images/previous.png" Height="16"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <TextBlock Name="contractListPaginInfo" Margin="10">
+                                            <Run Name="contractListCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="contractListTotalPage"  d:Text="100"/>
+                                    </TextBlock>
+                                    <Button x:Name="contractListNextButton"
+                                        Width="25" Height="25"
+                                        Click="contractListNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                        <Button.Content>
+                                            <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <!--Pagination of contract due to expire-->
+                            <Border Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                                <StackPanel Orientation="Horizontal" Height="35">
+                                    <Button x:Name="contractExpireListPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contractExpireListPreviousButton_Click">
+                                        <Button.Content>
+                                            <Image Source="/Images/previous.png" Height="16"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <TextBlock Name="contractExpireListPaginInfo" Margin="10">
+                                            <Run Name="contractExpireListCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="contractExpireListTotalPage"  d:Text="100"/>
+                                    </TextBlock>
+                                    <Button x:Name="contractExpireListNextButton"
+                                        Width="25" Height="25"
+                                        Click="contractExpireListNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                        <Button.Content>
+                                            <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        
+                        <!--Send noti to partner who have contract is due to expire-->
+                        
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <WrapPanel Grid.Column="2" Orientation="Horizontal">
+                                <TextBlock Text="Send noti to partner who have contract is due to expire"
+                                       FontSize="16" FontWeight="Medium" Foreground="White"
+                                       VerticalAlignment="Center"/>
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="60" Padding="5" FontSize="14" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="sendNotiContractID" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="12" Text="ID" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=sendNotiContractID}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+
+                                <Button x:Name="sendNotiToPartnerExpireContract"
+                                    Click="sendNotiToPartnerExpireContract_Click"
+                                    Content="Send"
+                                    Height="30" Width="40"
+                                    Background="#fb8500" Foreground="White"/>
+                            </WrapPanel>
+                        </Grid>
+
+                        <!--List of unapproved contracts-->
+                        <DockPanel Grid.Row="3" LastChildFill="True">
+                            <TextBlock Text="List of unapproved contracts" DockPanel.Dock="Top"
+                                       FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <!--Unapproved List-->
+                                <DataGrid Grid.Column="0" Name="contentContractManagementUnapprovedContractListView" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="35" Binding="{Binding ContractId}"/>
+                                        <DataGridTextColumn Header="Partner ID" IsReadOnly="True" CanUserResize="False" Width="70" Binding="{Binding ContractPartnerId}"/>
+                                        <DataGridTextColumn Header="Partner Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ContractPartnerName}"/>
+                                        <DataGridTextColumn Header="Registration Date" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ContractDate}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <!--Operation-->
+                                <StackPanel Grid.Column="2" Orientation="Vertical">
+                                    <TextBlock Text="Options" DockPanel.Dock="Top"
+                                       FontSize="16" Foreground="White" FontWeight="Medium" Margin="0,0,0,15"/>
+                                    <!--Contract ID-->
+                                    <TextBlock Text="Input Contract ID" Foreground="White" FontSize="15" FontWeight="Normal"
+                                       VerticalAlignment="Center" Margin="9,0,0,0"/>
+                                    <Label>
+                                        <Grid>
+                                            <TextBox BorderThickness="2"  Width="219" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="removeUnapprovedContract" Margin="5"/>
+                                            <TextBlock IsHitTestVisible="False" FontSize="8" Text="Contract ID" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Text, ElementName=removeUnapprovedContract}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Label>
+                                    <StackPanel Orientation="Horizontal" Margin="9,11,0,0">
+                                        <!--Approve Button-->
+                                        <Button x:Name="unapprovedContractApproveButton"
+                                            Click="unapprovedContractApproveButton_Click"
+                                            Content="Approve"
+                                            Height="30" Width="100"
+                                            Background="#023047" Foreground="White"/>
+                                        <!--Remove Button-->
+                                        <Button x:Name="unapprovedContractRemoveButton"
+                                                Visibility="Collapsed"
+                                            Click="unapprovedContractRemoveButton_Click"
+                                            Content="Remove"
+                                            Height="30" Width="100"
+                                            Background="#fb8500" Foreground="White" Margin="20,0,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </DockPanel>
+                        
+                        <!--Pagingnation of unapproved list-->
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Pagingnation-->
+                            <Grid Grid.Column="0">
+                                <!--Pagination of unapproved contract -->
+                                <Border Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                                    <StackPanel Orientation="Horizontal" Height="35">
+                                        <Button x:Name="unapprovedContractListPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="unapprovedContractListPreviousButton_Click">
+                                            <Button.Content>
+                                                <Image Source="/Images/previous.png" Height="16"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <TextBlock Name="unapprovedContractListPaginInfo" Margin="10">
+                                            <Run Name="unapprovedContractListCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="unapprovedContractListTotalPage"  d:Text="100"/>
+                                        </TextBlock>
+                                        <Button x:Name="unapprovedContractListNextButton"
+                                        Width="25" Height="25"
+                                        Click="unapprovedContractListNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                            <Button.Content>
+                                                <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                            </Button.Content>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ContentControl>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

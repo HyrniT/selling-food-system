@@ -1,0 +1,119 @@
+﻿<Window x:Class="OnlineSellingSystem.View.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OnlineSellingSystem.View"
+        mc:Ignorable="d"
+        Title="Login" Height="800" Width="1000"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Images/icon.ico"
+        Loaded="Login_Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/background2login.jpg"
+                            Stretch="Fill"/>
+            </Border.Background>
+            <Border Opacity="0.9">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="#023047" Offset="0"/>
+                        <GradientStop Color="#fb8900" Offset="0.75"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <StackPanel Orientation="Horizontal"
+                                Cursor="Hand"
+                                MouseDown="btn_back">
+                        <Image Source="/Images/back.png"
+                               HorizontalAlignment="Center"
+                               Width="15"/>
+                        <TextBlock Text="Back"
+                                   HorizontalAlignment="Center"
+                                   Foreground="White"
+                                   FontSize="15" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <TextBlock Text="Online Selling System"
+                               FontSize="23"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               TextWrapping="Wrap" Margin="0,100,0,30"/>
+                    <Image Source="/Images/logo2.png"
+                           Width="250"/>
+                </StackPanel>
+            </Border>
+        </Border>  
+        
+        <Border Grid.Column="1">
+            <StackPanel Orientation="Vertical" Margin="20,10,20,10">
+                <TextBlock Text="Don't have an account? Sign up"
+                           Name="moveToSignup"
+                           MouseDown="move_to_signup"
+                           Cursor="Hand"
+                           FontSize="15"
+                           Foreground="#023c47"
+                           HorizontalAlignment="Right"/>
+                <TextBlock Text="Wellcome!"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           Foreground="#023c47"
+                           Margin="15,50,0,0"/>
+                
+                <TextBlock Text="Login to continue"
+                           FontSize="15"
+                           Margin="15,5,0,0"/>
+                
+                <TextBlock Text="Phone Number"
+                           FontSize="15" Margin="15,35,0,0"
+                           />
+                <Label Margin="6,0,0,10">
+                    <Grid>
+                        <TextBox BorderThickness="2"  Width="500" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="loginPhoneNumber" Margin="5"/>
+                       
+                    </Grid>
+                </Label>
+
+                <TextBlock Text="Password"
+                           FontSize="15" Margin="15,10,0,0"
+                           />
+                <Label Margin="6,0,0,10">
+                    <Grid>
+                        <PasswordBox PasswordChar="*" BorderThickness="2"  Width="500" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="loginPassword" Margin="5"/>
+                       
+                    </Grid>
+                </Label>
+
+                <TextBlock  x:Name="incorrectLogin"
+                            Visibility="Hidden"
+                            Foreground="Red"
+                            FontStyle="Italic"
+                            FontWeight="Medium"
+                            FontSize="13"
+                            Margin="12 0 0 0"
+                            Text="The Phone Number or Password is Incorrect!" />
+
+                <Button HorizontalAlignment="Left"
+                        Click="login"
+                        Width="150"
+                        Padding="20,10,20,10"
+                        Background="#023047"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        Cursor="Hand"
+                        Foreground="White"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Content="Login"
+                        Margin="15,20,0,0">
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

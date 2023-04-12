@@ -1,0 +1,1550 @@
+﻿<Window x:Class="OnlineSellingSystem.View.MainWindowPartner"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:local="clr-namespace:OnlineSellingSystem.View"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="Partner" Height="800" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Images/icon.ico"
+        Loaded="MainWindowPartnerLoaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Navigation Menu-->
+        <Border Grid.Column="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7" >
+                    <GradientStop Color="#023047" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <!--Header-->
+                    <StackPanel Orientation="Vertical"
+                        Margin="20,30,0,30"
+                        HorizontalAlignment="Left">
+                        <Image Source="/Images/logo2.png"
+                       Height="100"/>
+                        <TextBlock Text="Hi !" FontSize="20"
+                               Foreground="White" FontWeight="Bold"
+                               Margin="0,10,0,0"/>
+                        <TextBlock x:Name="shopOwnerName"
+                               Text="Bracnh Owner Name"
+                               FontSize="20"
+                               Foreground="White" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <!--Menu Button-->
+                    <!--Shop Management-->
+                    <RadioButton x:Name="btnShopManagement"
+                             Click="btnShopManagementChecked"
+                             Style="{StaticResource menuButton}"
+                             Tag="#fb8500">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/shop.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Shop Management" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                    <!--Menu-->
+                    <RadioButton Name="btnMenu"
+                             Style="{StaticResource menuButton}"
+                             Click="btnMenuChecked"
+                             Tag="#f35900">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/menu.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Menu" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                    <!--Orders-->
+                    <RadioButton Name="btnOrders"
+                             Style="{StaticResource menuButton}"
+                             Click="btnOrdersChecked"
+                             Tag="#32a353">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/order.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Orders" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                    <!--Statistics-->
+                    <RadioButton Name="btnStatistics"
+                             Style="{StaticResource menuButton}"
+                             Click="btnStatisticsChecked"
+                             Tag="#9c27b0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/data.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Statistics" Style="{StaticResource menuButtonText}"
+                                    Padding="20,0,0,0"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                    <!--Wallet-->
+                    <RadioButton Name="btnWallet"
+                             Style="{StaticResource menuButton}"
+                             Click="btnWalletChecked"
+                             Tag="#fca120">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/wallet.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Waller" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                </StackPanel>
+                <!--Log out Button-->
+                <StackPanel Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            MouseDown="logoutButton">
+                    <Image Source="/Images/logout.png"
+                           Width="15"
+                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock VerticalAlignment="Center" Text="Log out" Foreground="White" FontSize="18" FontWeight="Medium"/>
+                </StackPanel>
+            </Grid>
+            
+        </Border>
+
+        <!--Main Section-->
+        
+        <!--Main Section: Shop Management-->
+        <Border Name="contentShopManagement"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <!--Caption-->
+                        <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                            <Image Source="/Images/shop.png"
+                               Width="40"/>
+                            <TextBlock Text="Shop Management"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                    </Grid>
+
+                    <!--Content Section-->
+                <ContentControl
+                                Grid.Row="1"
+                                Margin="50,30,0,0">
+                    <StackPanel Orientation="Vertical">
+                        <!--Shop Name-->
+                        <TextBlock Text="Shop"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="#A3C7D6"/>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="shopName"
+                                           Text="/Binding Shop Name/"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           Foreground="White"
+                                           Margin="0,10,0,0"/>
+                                <Image Name="contentShopNameEdit" Source="/Images/edit.png"
+                                   Height="20"
+                                   Margin="20,0,0,0"
+                                   MouseDown="contentShopnameEdit"/>
+                            </StackPanel>
+                            <StackPanel Name="contentEditShopName"
+                                        Visibility="Collapsed"
+                                        Orientation="Horizontal">
+                                <Label>
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="newShopName" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="16" Text="New Name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=newShopName}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <Button Content="Ok"
+                                        Height="40"
+                                        Width="50"
+                                        Foreground="White" FontWeight="Bold"
+                                        Click="contentShopEditShopNameOkButton"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <!--Shop management-->
+                        <TextBlock Text="Management"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="#A3C7D6"
+                                   Margin="0,40,0,0"/>
+                        <!--Shop Status-->
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Shop status:"
+                                      FontSize="20"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="0,10,0,0"/>
+                            <RadioButton x:Name="contentShopStatusNormal"
+                                         Click="contentShopStatusNormalClick"
+                                         Content="Normal"
+                                         FontSize="20" FontWeight="Medium" Foreground="White"
+                                         VerticalAlignment="Bottom"
+                                         Margin="30,0,15,0"/>
+                            <RadioButton x:Name="contentShopStatusStopOrder"
+                                         Click="contentShopStatusStopOrderClick"
+                                         Content="Stop Order"
+                                         FontSize="20" FontWeight="Medium" Foreground="White"
+                                         VerticalAlignment="Bottom"
+                                         Margin="15,0,15,0"/>
+                            <RadioButton x:Name="contentShopStatusStop"
+                                         Click="contentShopStatusStopClick"
+                                         Content="Stop"
+                                         FontSize="20" FontWeight="Medium" Foreground="White"
+                                         VerticalAlignment="Bottom"
+                                         Margin="15,0,15,0"/>
+                        </StackPanel>
+                        
+                        <!--Open time-->
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <TextBlock Text="Open time:"
+                                      FontSize="20"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="0,10,0,0"
+                                      VerticalAlignment="Center"/>
+                            <Label Margin="30,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="openTime" Margin="5"/>
+                                    <TextBlock Name="placeholderOpenTime" IsHitTestVisible="False" FontSize="16" Text="binding open time here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=openTime}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <Button Content="Update"
+                                    Height="40"
+                                    Width="60"
+                                    Foreground="White"
+                                    FontWeight="Bold"
+                                    Click="updateOpenTime"/>
+                        </StackPanel>
+
+                        <!--Close time-->
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <TextBlock Text="Close time:"
+                                      FontSize="20"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="0,10,0,0"
+                                      VerticalAlignment="Center"/>
+                            <Label Margin="30,0,0,0">
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="closeTime" Margin="5"/>
+                                    <TextBlock x:Name="placeholderCloseTime" IsHitTestVisible="False" FontSize="16" Text="binding close time here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=closeTime}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+                            <Button Content="Update"
+                                    Height="40"
+                                    Width="60"
+                                    Foreground="White"
+                                    FontWeight="Bold"
+                                    Click="updateCloseTime"/>
+                        </StackPanel>
+
+                        <StackPanel Visibility="Collapsed" Orientation="Vertical">
+                            <!--Contract-->
+                            <TextBlock Text="Contract"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="#A3C7D6"
+                                   Margin="0,40,0,0"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <TextBlock Text="Contrac Day: "
+                                      FontSize="20"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      VerticalAlignment="Top"/>
+                                <StackPanel Orientation="Vertical"
+                                        VerticalAlignment="Top">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Binding contract date "
+                                          FontSize="20"
+                                          FontWeight="Normal"
+                                          Foreground="White"
+                                          Margin="20,0,20,0"
+                                          VerticalAlignment="Center"/>
+                                        <Image Source="/Images/edit.png"
+                                           Height="20"
+                                           Margin="20,0,0,0"
+                                           MouseDown="showRenewContract"/>
+                                    </StackPanel>
+
+                                    <StackPanel Name="renewContractView"
+                                            Visibility="Collapsed"
+                                            Orientation="Horizontal" Margin="0,5,0,0">
+                                        <Label>
+                                            <Grid>
+                                                <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="newContract" Margin="5"/>
+                                                <TextBlock IsHitTestVisible="False" FontSize="16" Text="New Date" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Text, ElementName=newContract}" Value="">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Label>
+                                        <Button Content="Renew"
+                                        Height="40"
+                                        Width="60"
+                                        Foreground="White" FontWeight="Bold"
+                                        Click="renewContractButton"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </StackPanel>
+                        
+                    </StackPanel>
+
+                </ContentControl>
+
+            </Grid>
+        </Border>
+
+        <!--Main Section: Menu-->
+        <Border Name="contentMenus"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,40,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                    <!--Caption and Add button-->
+                <DockPanel Grid.Row="0"
+                               LastChildFill="False">
+                    <StackPanel
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/menu.png"
+                               Width="40"/>
+                        <TextBlock Text="Menu"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                    
+                </DockPanel>
+                <!--Content Section-->
+                <ContentControl Grid.Row="1"
+                                Margin="50,0,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--Data menu-->
+                        <!--Products List-->
+                        <DockPanel Grid.Row="0" LastChildFill="True">
+                            <TextBlock DockPanel.Dock="Top" Text="Products List" FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <DataGrid  Name="contentMenuDataGridProduct"
+                                  AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+
+                                    <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding Id}"/>
+                                    <DataGridTextColumn Header="Name" IsReadOnly="True" CanUserResize="False" Width="200" Binding="{Binding Name}"/>
+
+                                    <DataGridTextColumn Header="Description" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Description}"/>
+
+                                    <DataGridTextColumn Header="Price" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding Price}"/>
+
+                                    <DataGridTextColumn Header="Status" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding Status}"/>
+
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <!--Pagination-->
+                        </DockPanel>
+                        
+                        <Border Grid.Row="1"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" Height="35">
+                                <Button x:Name="contentMenuPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="previousButton_Click">
+                                    <Button.Content>
+                                        <Image Source="/Images/previous.png" Height="16"/>
+                                    </Button.Content>
+                                </Button>
+                                <TextBlock Name="pagingInfo" Margin="10">
+                                            <Run Name="productCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="productTotalPage" Text="{Binding TotalPages}" d:Text="100"/>
+                                </TextBlock>
+                                <Button x:Name="contentMenuNextButton"
+                                        Width="25" Height="25"
+                                        Click="nextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                    <Button.Content>
+                                        <Image Source="/Images/next.png"
+                                               Height="16"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!--Product Add, Update, Remove-->
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Options-->
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Options" FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,10,0,5"/>
+                                <!--Add-->
+                                <Button HorizontalAlignment="Left"
+                                Click="addProductButton_Click"
+                                Width="150"
+                                Padding="5,10,5,10"
+                                Background="#023047"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/add.png"  Height="15" Margin="0,0,10,0"/>
+                                            <TextBlock Text="Add" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <!--Remove-->
+                                <Button HorizontalAlignment="Left"
+                                Click="removeProductButton_Click"
+                                Width="150"
+                                Padding="5,10,5,10"
+                                Background="#ffb703"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/trash.png"  Height="15" Margin="0,0,10,0"/>
+                                            <TextBlock Text="Remove" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <!--Update-->
+                                <Button HorizontalAlignment="Left"
+                                Click="updateProductButton_Click"
+                                Width="150"
+                                Padding="5,10,5,10"
+                                Background="#fb8500"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/update.png"  Height="15" Margin="0,0,10,0"/>
+                                            <TextBlock Text="Update" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                            
+                            <!--Content-->
+                            <!--Content Add-->
+                            <StackPanel Orientation="Vertical" Grid.Column="2"
+                                        Name="contentAddProduct" Visibility="Collapsed">
+                                <TextBlock Text="Add A Product" FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,10,0,5"/>
+                               
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Vertical" Margin="0,0,11,0">
+                                        <TextBlock Text="Product Type" Foreground="White" FontSize="15" FontWeight="Medium" Margin="0,0,0,10"/>
+                                        <ComboBox Name="comboBoxProductType" 
+                                          Width="200" Background="White" Foreground="Black"
+                                          HorizontalAlignment="Left" Height="28">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Name}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </StackPanel>
+                                     <!--Name-->
+                                     <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Name" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                    <Label Margin="-10,0,0,0">
+                                        <Grid>
+                                            <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addProductName" Margin="5"/>
+                                            <TextBlock IsHitTestVisible="False" FontSize="8" Text="Cacao" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Text, ElementName=addProductName}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Label>
+                                </StackPanel>
+                                    
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <!--Description-->
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Description" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                        <Label Margin="-10,0,0,0">
+                                            <Grid>
+                                                <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addProductDescription" Margin="5"/>
+                                                <TextBlock IsHitTestVisible="False" FontSize="8" Text="Cacao nóng/ lạnh tùy ý" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Text, ElementName=addProductDescription}" Value="">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Label>
+                                    </StackPanel>
+                                    <!--Price-->
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Price" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                        <Label Margin="-10,0,0,0">
+                                            <Grid>
+                                                <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="addProductPrice" Margin="5"/>
+                                                <TextBlock IsHitTestVisible="False" FontSize="8" Text="50000" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Text, ElementName=addProductPrice}" Value="">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Label>
+                                    </StackPanel>
+                                </StackPanel>
+                                <!--Add Done Button-->
+                                <Button HorizontalAlignment="Left"
+                                        Click="addProductDoneButton_Click"
+                                        Width="100"
+                                        Padding="5,10,5,10"
+                                        Background="#023047"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Cursor="Hand"
+                                        Margin="0,20,0,0">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/add.png"  Height="15" Margin="0,0,10,0"/>
+                                            <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                            
+                            <!--Content Remove-->
+                            <StackPanel x:Name="contentRemoveProduct" Visibility="Collapsed"
+                                        Orientation="Vertical" Grid.Column="2">
+                                <TextBlock Text="Remove Product" FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,10,0,5"/>
+                                <TextBlock Text="Product ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                <Label Margin="-10,0,0,0">
+                                    <Grid>
+                                        <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="removeProductId" Margin="5"/>
+                                        <TextBlock IsHitTestVisible="False" FontSize="8" Text="Cacao" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=removeProductId}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Label>
+                                <!--Remove Done Button-->
+                                <Button HorizontalAlignment="Left"
+                                        Click="removeProductDoneButton_Click"
+                                        Width="100"
+                                        Padding="5,10,5,10"
+                                        Background="#023047"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Cursor="Hand"
+                                        Margin="0,20,0,0">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/remove.png"  Height="15" Margin="0,0,10,0"/>
+                                            <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                            
+                            <!--Content Update-->
+                            <StackPanel x:Name="contentUpdateProduct" Visibility="Collapsed" Grid.Column="2" Orientation="Vertical">
+                                <TextBlock Text="Update A Product" FontSize="18" Foreground="White" FontWeight="Medium" Margin="0,10,0,5"/>
+                                <!--Update ID-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                    <Label Margin="25,0,0,0">
+                                        <Grid>
+                                            <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                 x:Name="updateProductID" Margin="5"/>
+                                            <TextBlock IsHitTestVisible="False" FontSize="8" Text="Binding ID to here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Text, ElementName=updateProductID}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Label>
+                                    <Button Name="updateAdminIdButton" Content="Search ID" Height="28" Width="100"
+                                        Margin="20 0 0 0"
+                                        Click="updateProductSearchIdButton_Click"/>
+                                </StackPanel>
+                                <!--Name And Price-->
+                                <StackPanel Orientation="Horizontal">
+                                    <!--Name-->
+                                    <TextBlock Text="Name" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                    <Label>
+                                        <Grid>
+                                            <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateProductName" Margin="5"/>
+                                            <TextBlock x:Name="placeholderUpdateProductName" IsHitTestVisible="False" FontSize="8" Text="Binding Name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Text, ElementName=updateProductName}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Label>
+                                    <!--Price-->
+                                    <TextBlock Text="Price " Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="31,0,0,0"/>
+                                    <Label>
+                                        <Grid>
+                                            <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateProductPrice" Margin="5"/>
+                                            <TextBlock x:Name="placeholderUpdateProductPrice" IsHitTestVisible="False" FontSize="8" Text="Binding Phone" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Text, ElementName=updateProductPrice}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Label>
+                                </StackPanel>
+                                <!--Desc And Status-->
+                                <StackPanel Orientation="Horizontal">
+                                    <!--Email-->
+                                    <TextBlock Text="Desc " Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                                    <Label Margin="3,0,0,0">
+                                        <Grid>
+                                            <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="updateProductDesc" Margin="5"/>
+                                            <TextBlock x:Name="placeholderUpdateProductDesc" IsHitTestVisible="False" FontSize="8" Text="Binding Desc" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Text, ElementName=updateProductDesc}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Label>
+                                    <!--Status-->
+                                    <TextBlock Text="Status   " Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="14,0,0,0"/>
+                                    <ComboBox Name="productStatus" Width="200" Height="28" Margin="11,0,0,0">
+                                        <ComboBoxItem>
+                                            <TextBlock Text="Hết hàng"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock Text="Ngưng phục vụ"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock Text="Còn hàng"/>
+                                        </ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+                                <!--Add Done Button-->
+                                <Button HorizontalAlignment="Left"
+                                Click="contentProductUpdateDoneButton_Click"
+                                Width="100"
+                                Padding="5,10,5,10"
+                                Background="#fb8500"
+                                BorderThickness="0"
+                                BorderBrush="Transparent"
+                                Cursor="Hand"
+                                Margin="0,20,0,0">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/update.png"  Height="15" Margin="0,0,10,0"/>
+                                            <TextBlock Text="Done" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </Grid>
+                </ContentControl>
+            </Grid>
+        </Border>
+
+        <!--Main Section: Orders-->
+        <Border Name="contentOrders"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="55"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/order.png"
+                               Width="40"/>
+                        <TextBlock Text="Orders"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+
+                </Grid>
+
+                <!--Content Section-->
+                <!--Approved Orders-->
+                <DockPanel Grid.Row="1" LastChildFill="True">
+                    <TextBlock DockPanel.Dock="Top" Text="Approved Orders List" FontSize="15" Foreground="White" FontWeight="Medium" Margin="0,0,0,5"/>
+                    <DataGrid Name="contentOrdersListView" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="70" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Date" IsReadOnly="True" CanUserResize="False" Width="200" Binding="{Binding Date}"/>
+                            <DataGridTextColumn Header="Price" IsReadOnly="True" CanUserResize="False" Width="200" Binding="{Binding Price}"/>
+                            <DataGridTextColumn Header="Customer" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CustomerName}"/>
+                            <DataGridTextColumn Header="Driver" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding DriverName}"/>
+                            <DataGridTextColumn Header="Status" IsReadOnly="True" CanUserResize="False" Width="250" Binding="{Binding Status}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+
+                <!--Pagination Approved Orders-->
+                <Grid Grid.Row="2">
+                    <!--Pagination of partner list-->
+                    <Border 
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" Height="35">
+                            <Button x:Name="contentaApprovedOrdersListPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contentApprovedOrdersListPreviousButton_Click">
+                                <Button.Content>
+                                    <Image Source="/Images/previous.png" Height="16"/>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Name="contentApprovedOrdersListPaginInfo" Margin="10">
+                                            <Run Name="approvedOrdersCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="approvedOrdersTotalPage"  d:Text="100"/>
+                            </TextBlock>
+                            <Button x:Name="contentApprovedOrdersListNextButton"
+                                        Width="25" Height="25"
+                                        Click="contentApprovedOrdersListNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                <Button.Content>
+                                    <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+
+                <!--UnApproved Orders-->
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--Unapproved List-->
+                    <DockPanel Grid.Column="0" LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Top" Text="Unapproved Orders List" FontSize="15" Foreground="White" FontWeight="Medium" Margin="0,0,0,5"/>
+                        <DataGrid Name="contentUnapprovedOrdersListView" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="70" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="Date" IsReadOnly="True" CanUserResize="False" Width="150" Binding="{Binding Date}"/>
+                                <DataGridTextColumn Header="Price" IsReadOnly="True" CanUserResize="False" Width="150" Binding="{Binding Price}"/>
+                                <DataGridTextColumn Header="Customer" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CustomerName}"/>
+                                <DataGridTextColumn Header="Customer Phone" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CustomerPhone}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                    
+                    <!--Accept Order-->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Accept Orders" FontSize="15" Foreground="White" FontWeight="Medium" Margin="0,0,0,5"/>
+                        
+                        <TextBlock Text="Order ID" Foreground="White" FontSize="15" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                        <Label Margin="-10,0,0,0">
+                            <Grid>
+                                <TextBox BorderThickness="2"  Width="200" Padding="5" FontSize="10" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="acceptOrderId" Margin="5"/>
+                                <TextBlock IsHitTestVisible="False" FontSize="8" Text="Order ID" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=acceptOrderId}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Label>
+                        <!--Remove Done Button-->
+                        <Button HorizontalAlignment="Left"
+                                        Click="acceptOrder_Click"
+                                        Width="100"
+                                        Padding="5,10,5,10"
+                                        Background="#023047"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Cursor="Hand"
+                                        Margin="0,20,0,0">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/add.png"  Height="15" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Accept" Foreground="White" FontSize="15" FontWeight="Medium"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <!--Pagin UnApproved Orders-->
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Border 
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" Height="35">
+                                <Button x:Name="contentUnapprovedOrdersListPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contentUnapprovedOrdersListPreviousButton_Click">
+                                    <Button.Content>
+                                        <Image Source="/Images/previous.png" Height="16"/>
+                                    </Button.Content>
+                                </Button>
+                                <TextBlock Name="contentUnapprovedOrdersListPagingInfo" Margin="10">
+                                            <Run Name="unapprovedOrdersListCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="unapprovedOrdersListTotalPage"  d:Text="100"/>
+                                </TextBlock>
+                                <Button x:Name="contentUnapprovedOrdersListNextButton"
+                                        Width="25" Height="25"
+                                        Click="contentUnapprovedOrdersListNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                    <Button.Content>
+                                        <Image Source="/Images/next.png"
+                                           Height="16"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+
+                    </Grid>
+                </Grid>
+                
+                
+            </Grid>
+        </Border>
+
+        <!--Main Section: Statistics-->
+        <Border Name="contentStatistics"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/data.png"
+                               Width="40"/>
+                        <TextBlock Text="Statistics"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                        <DatePicker Name="staticsticsDatePicker"
+                                    VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        <Button Click="partnerSeeStaticstics_Click"
+                                Content="See Staticstics"
+                                Width="100"
+                                Height="30" Margin="20,0,0,0"/>
+                    </StackPanel>
+
+                </Grid>
+
+                <!--Content Section-->
+                <ContentControl Grid.Row="1"
+                                Margin="50,30,40,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!--Reveneu-->
+                        <StackPanel Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                            <GradientStop Color="#ffb703" Offset="0"/>
+                                            <GradientStop Color="#fb8500" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <!--Day Revenue-->
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Day"
+                                                    FontSize="25" FontWeight="Medium" Foreground="White"
+                                                    VerticalAlignment="Center" Margin="20,10,0,0"/>
+
+                                        <TextBlock Text="Revenue"
+                                                    FontSize="18" FontWeight="Medium" Foreground="White"
+                                                    VerticalAlignment="Center"
+                                                    Margin="20,20,0,10"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="$"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                            <TextBlock Text="0"
+                                                       Name="tbl_revenueDay"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="0,0,10,0"/>
+                                        </StackPanel>
+
+                                        <TextBlock Text="Orders"
+                                                    FontSize="18" FontWeight="Medium" Foreground="White"
+                                                    VerticalAlignment="Center"
+                                                    Margin="20,20,20,10"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="#"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                            <TextBlock Text="0"
+                                                       Name="tbl_orderDay"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 30"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="2">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                            <GradientStop Color="#005555" Offset="0"/>
+                                            <GradientStop Color="#069A8E" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <!--Week Revenue-->
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Week"
+                                                    FontSize="25" FontWeight="Medium" Foreground="White"
+                                                    VerticalAlignment="Center" Margin="20,10,0,0"/>
+
+                                        <TextBlock Text="Revenue"
+                                                    FontSize="18" FontWeight="Medium" Foreground="White"
+                                                    VerticalAlignment="Center"
+                                                    Margin="20,20,0,10"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="$"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                            <TextBlock Text="0"
+                                                       Name="tbl_revenueWeek"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="0,0,10,0"/>
+                                        </StackPanel>
+
+                                        <TextBlock Text="Orders"
+                                                    FontSize="18" FontWeight="Medium" Foreground="White"
+                                                    VerticalAlignment="Center"
+                                                    Margin="20,20,20,10"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="#"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                            <TextBlock Text="0"
+                                                       Name="tbl_orderWeek"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 30"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="4">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                            <GradientStop Color="#1C0C5B" Offset="0"/>
+                                            <GradientStop Color="#3D2C8D" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <!--Month Revenue-->
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Month"
+                                                    FontSize="25" FontWeight="Medium" Foreground="White"
+                                                    VerticalAlignment="Center" Margin="20,10,0,0"/>
+
+                                        <TextBlock Text="Revenue"
+                                                    FontSize="18" FontWeight="Medium" Foreground="White"
+                                                    VerticalAlignment="Center"
+                                                    Margin="20,20,0,10"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="$"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                            <TextBlock Text="0"
+                                                       Name="tbl_revenueMonth"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="0,0,10,0"/>
+                                        </StackPanel>
+
+                                        <TextBlock Text="Orders"
+                                                    FontSize="18" FontWeight="Medium" Foreground="White"
+                                                    VerticalAlignment="Center"
+                                                    Margin="20,20,20,10"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="#"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                            <TextBlock Text="0"
+                                                       Name="tbl_orderMonth"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 30"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                        <!--Top sell-->
+                        <DockPanel LastChildFill="True" Grid.Row="2">
+                            <TextBlock Text="Top Sales" DockPanel.Dock="Top"
+                                        FontSize="18" FontWeight="Medium" Foreground="White" Margin="0,0,0,5"/>
+                            <DataGrid  Name="topSalesDataGridProduct"
+                                  AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+
+                                    <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding Id}"/>
+                                    <DataGridTextColumn Header="Name" IsReadOnly="True" CanUserResize="False" Width="200" Binding="{Binding Name}"/>
+
+                                    <DataGridTextColumn Header="Description" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Description}"/>
+
+                                    <DataGridTextColumn Header="Price" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding Price}"/>
+
+                                    <DataGridTextColumn Header="Status" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding Status}"/>
+                                    <DataGridTextColumn Header="Sold" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding Sold}"/>
+
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </Grid>
+                </ContentControl>
+
+
+            </Grid>
+        </Border>
+
+        <!--Main Section: Wallet-->
+        <Border Name="contentWallet"
+                Visibility="Visible"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/wallet.png"
+                               Width="40"/>
+                        <TextBlock Text="Wallet"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+
+                </Grid>
+
+                <!--Content Section-->
+                <ContentControl Grid.Row="1"
+                                Margin="50,30,0,0">
+                    <Grid>
+                        <!--Check if haven't opened wallet yet-->
+                        <Grid x:Name="contentWalletNotOpenWallet"
+                              Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0"
+                                        Orientation="Horizontal">
+                                <TextBlock Text="You haven't opened your wallet yet!"
+                                           Foreground="White" FontSize="20" FontWeight="Medium"
+                                           VerticalAlignment="Center"/>
+                                <!--Open Wallet Button-->
+                                <Button Width="150"
+                                        Background="#023047"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Cursor="Hand"
+                                        Padding="10 5 10 5" Margin="37 0 0 0"
+                                        VerticalAlignment="Center"
+                                        Click="contentWalletOpenWallet_Click">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/wallet_white.png"
+                                                   Height="18"
+                                                   Margin="0 0 10 0"/>
+                                            <TextBlock  Foreground="White"
+                                                        FontSize="15"
+                                                        FontWeight="Normal"
+                                                        Text="Open Wallet"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                            <!--Wallet Registration-->
+                            <StackPanel x:Name="contentWalletRegisterWallet"
+                                        Visibility="Collapsed"
+                                        Grid.Row="1">
+                                <!--Bank Account-->
+                                <TextBlock Text="Bank Account" Margin="10,10,0,0"
+                                           FontSize="15" FontWeight="Bold" Foreground="White"/>
+                                <StackPanel Orientation="Vertical">
+                                    <!--Bank branch-->
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Bank Branch"
+                                                   FontSize="15" Margin="10,10,0,0" Foreground="White"/>
+                                        <Label Margin="0,0,0,10">
+                                            <Grid>
+                                                <TextBox BorderThickness="2"  Width="500" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="bankBranchName" Margin="5"/>
+                                                <TextBlock IsHitTestVisible="False" FontSize="16" Text="Ex: Vietcombank" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Text, ElementName=bankBranchName}" Value="">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Label>
+                                    </StackPanel>
+                                    <!--Bank number-->
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Bank Number" Foreground="White" FontSize="15" Margin="10,0,0,0"/>
+                                        <Label Margin="0,0,0,10">
+                                            <Grid>
+                                                <TextBox BorderThickness="2"  Width="500" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="bankNumber" Margin="5"/>
+                                                <TextBlock IsHitTestVisible="False" FontSize="16" Text="Ex: 0643234912424" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Text, ElementName=bankNumber}" Value="">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Label>
+                                    </StackPanel>
+                                    <!--Fullname-->
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Fullname" Foreground="White" FontSize="15" Margin="10,0,0,0"/>
+                                        <Label Margin="0,0,0,10">
+                                            <Grid>
+                                                <TextBox BorderThickness="2"  Width="500" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="bankFullname" Margin="5"/>
+                                                <TextBlock IsHitTestVisible="False" FontSize="16" Text="Ex: Nguyen Van Hieu" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Text, ElementName=bankFullname}" Value="">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Label>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Button Width="170"
+                                        HorizontalAlignment="Left"
+                                        Background="#fb8500"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Cursor="Hand"
+                                        Padding="10 10 10 10" Margin="10"
+                                        VerticalAlignment="Center"
+                                        Click="contentWalletConfirmOpenWallet_Click">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/wallet_white.png"
+                                                   Height="18"
+                                                   Margin="0 0 10 0"/>
+                                            <TextBlock  Foreground="White"
+                                                        FontSize="15"
+                                                        FontWeight="Normal"
+                                                        Text="Confirm &amp; Open"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                        <!--If opened wallet-->
+                        <Grid x:Name="contentWalletOpenedWallet">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="4*"/>
+                            </Grid.RowDefinitions>
+                            <!--Deposits-->
+                            <Border Grid.Row="0"
+                                    Width="300"
+                                    HorizontalAlignment="Left">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                        <GradientStop Color="#ffb703" Offset="0"/>
+                                        <GradientStop Color="#fb8500" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <!--Deposits-->
+                                <StackPanel Orientation="Vertical">
+                                    <DockPanel LastChildFill="False">
+                                        <TextBlock Text="Deposits"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20"/>
+                                    </DockPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="$"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                        <TextBlock Text="9.999.999"
+                                                   Name="deposite"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 30"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                            <!--Top-up-->
+                            <StackPanel Grid.Row="1" Orientation="Vertical"
+                                        HorizontalAlignment="Left"
+                                        Margin="0 30 0 0">
+                                <!--Top-up Button-->
+                                <Button Width="150"
+                                        Background="#023047"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Cursor="Hand"
+                                        Padding="10 5 10 5"
+                                        HorizontalAlignment="Left"
+                                        Click="contentWalletTopup_Click">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/top-up.png"
+                                                   Height="18"
+                                                   Margin="0 0 10 0"/>
+                                            <TextBlock  Foreground="White"
+                                                        FontSize="15"
+                                                        FontWeight="Normal"
+                                                        Text="Top-up"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <StackPanel Name="contentWalletTopupOpen"
+                                            Visibility="Collapsed"
+                                            Orientation="Vertical">
+                                    <!--Input Money-->
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Money"
+                                                   FontSize="15" Margin="10,10,0,0" Foreground="White"/>
+                                        <Label Margin="0,0,0,10">
+                                            <Grid>
+                                                <TextBox BorderThickness="2"  Width="290" Padding="5" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="moneyTopup" Margin="5"/>
+                                                <TextBlock IsHitTestVisible="False" FontSize="16" Text="Ex: 1000000" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Text, ElementName=moneyTopup}" Value="">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Label>
+                                    </StackPanel>
+                                    <!--Input Money Ok Button-->
+                                    <Button Width="100"
+                                        Background="#ffb703"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Cursor="Hand"
+                                        Padding="10 5 10 5"
+                                            Margin="10 0 0 0"
+                                        HorizontalAlignment="Left"
+                                        Click="contentWalletTopupMoneyOk_Click">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="/Images/top-up.png"
+                                                   Height="18"
+                                                   Margin="0 0 10 0"/>
+                                                <TextBlock  Foreground="White"
+                                                        FontSize="15"
+                                                        FontWeight="Normal"
+                                                        Text="Ok"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ContentControl>
+
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

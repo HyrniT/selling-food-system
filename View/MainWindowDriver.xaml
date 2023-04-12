@@ -1,0 +1,482 @@
+﻿<Window x:Class="OnlineSellingSystem.View.MainWindowDriver"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OnlineSellingSystem.View"
+        mc:Ignorable="d"
+        Title="Driver" Height="800" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Images/icon.ico"
+        Loaded="MainWindowDriverLoaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!--Navigation Menu-->
+        <Border Grid.Column="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7" >
+                    <GradientStop Color="#023047" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <!--Header-->
+                    <StackPanel Orientation="Vertical"
+                        Margin="20,30,0,30"
+                        HorizontalAlignment="Left">
+                        <Image Source="/Images/logo2.png"
+                       Height="100"/>
+                        <TextBlock Text="Hi !" FontSize="20"
+                               Foreground="White" FontWeight="Bold"
+                               Margin="0,10,0,0"/>
+                        <TextBlock x:Name="driverName"
+                               Text="Driver Name"
+                               FontSize="20"
+                               Foreground="White" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <!--Menu Button-->
+                    <!--Select Orders-->
+                    <RadioButton x:Name="btnSelectOrders"
+                             Click="btnSelectChecked"
+                             Style="{StaticResource menuButton}"
+                             Tag="#fb8500">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/order.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Select Orders" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                    <!--Revenue-->
+                    <RadioButton Name="btnRevenue"
+                             Style="{StaticResource menuButton}"
+                             Click="btnRevenueChecked"
+                             Tag="#f35900">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/wallet.png"
+                               Width="20" Margin="20,0,0,0"/>
+                            <TextBlock Text="Revenue" Style="{StaticResource menuButtonText}"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+                <!--Log out Button-->
+                <StackPanel Grid.Row="1"
+                            DockPanel.Dock="Bottom"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            MouseDown="logoutButton">
+                    <Image Source="/Images/logout.png"
+                           Width="15"
+                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock VerticalAlignment="Center" Text="Log out" Foreground="White" FontSize="18" FontWeight="Medium"/>
+                </StackPanel>
+            </Grid>
+
+        </Border>
+        
+        <!--Content-->
+        <!--Select orders content-->
+        <Border Name="contentSelectOrders"
+                Visibility="Visible"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/order.png"
+                               Width="40"/>
+                        <TextBlock Text="Select Orders"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Content Section-->
+                <ContentControl Grid.Row="1"
+                                Margin="50,30,40,20">
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <!--Data Grid Orders-->
+                        <DataGrid Grid.Row="0" Name="contentSelectOrdersDataGrid"
+                                  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding Id}"/>
+
+                                <DataGridTextColumn Header="Price" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Total}"/>
+
+                                <DataGridTextColumn Header="Branch Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding BranchName}"/>
+
+                                <DataGridTextColumn Header="Branch Phone" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding BranchPhone}"/>
+
+                                <DataGridTextColumn Header="Customer Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CustomerName}"/>
+
+                                <DataGridTextColumn Header="Customer Phone" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CustomerPhone}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!--Pagination-->
+                        <Border Grid.Row="1"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" Height="35">
+                                <Button x:Name="contentSelectOrdersPreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contentSelectOrdersPreviousButton_Click">
+                                    <Button.Content>
+                                        <Image Source="/Images/previous.png" Height="16"/>
+                                    </Button.Content>
+                                </Button>
+                                <TextBlock Name="pagingInfo" Margin="10">
+                                            <Run Name="ordersListCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="ordersListTotalPage" d:Text="100"/>
+                                </TextBlock>
+                                <Button x:Name="contentSelectOrdersNextButton"
+                                        Width="25" Height="25"
+                                        Click="contentSelectOrdersNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                    <Button.Content>
+                                        <Image Source="/Images/next.png"
+                                               Height="16"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!--Select-->
+                        <StackPanel Orientation="Horizontal" Grid.Row="2">
+                            <TextBlock Text="Select Order" Foreground="White"
+                                       FontSize="18" FontWeight="Medium"
+                                       VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Label>
+                                <Grid>
+                                    <TextBox BorderThickness="2"  Width="150" Padding="5" FontSize="14" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="selectOrderID" Margin="5"/>
+                                    <TextBlock IsHitTestVisible="False" FontSize="12" Text="Order ID" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0" Foreground="DarkGray">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=selectOrderID}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Label>
+
+                            <Button x:Name="selectOrder"
+                                    Click="selectOrder_Click"
+                                    Content="Select" Foreground="White" FontWeight="Medium"
+                                    Background="#fb8500"
+                                    Height="30" Width="80"/>
+                        </StackPanel>
+                    </Grid>
+                </ContentControl>
+            </Grid>
+        </Border>
+
+        <!--Revenue-->
+        <Border Name="contentRevenue"
+                Visibility="Collapsed"
+                Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                    <GradientStop Color="#219ebc" Offset="0"/>
+                    <GradientStop Color="#219ebc" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="20,30,20,20">
+                <Grid.RowDefinitions>
+                    <!--Header/Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content Section-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header/Caption-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="/Images/wallet.png"
+                               Width="40"/>
+                        <TextBlock Text="Revenue"
+                                   FontSize="22"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Content Section-->
+                <ContentControl Grid.Row="1"
+                                Margin="50,30,40,20">
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--Data Grid Orders-->
+                        <DataGrid Grid.Row="0" Name="contentDeliveredOrdersDataGrid"
+                                  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding Id}"/>
+
+                                <DataGridTextColumn Header="Price" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding Total}"/>
+
+                                <DataGridTextColumn Header="Branch Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding BranchName}"/>
+
+                                <DataGridTextColumn Header="Customer Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CustomerName}"/>
+
+                                <DataGridTextColumn Header="Customer Phone" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CustomerPhone}"/>
+                                <DataGridTextColumn Header="Status" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Status}"/>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!--Pagination-->
+                        <Border Grid.Row="1"
+                                HorizontalAlignment="Right"
+                                BorderBrush="#dee4ec" BorderThickness="1"
+                                CornerRadius="5" Padding="5" Background="White"
+                                Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" Height="35">
+                                <Button x:Name="contentRevenuePreviousButton"
+                                        Width="25" Height="25"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent"
+                                        Click="contentRevenuePreviousButton_Click">
+                                    <Button.Content>
+                                        <Image Source="/Images/previous.png" Height="16"/>
+                                    </Button.Content>
+                                </Button>
+                                <TextBlock Name="pagingDeliveredInfo" Margin="10">
+                                            <Run Name="deliveredCurrentPage" d:Text="3"/>
+                                            / 
+                                            <Run Name="deliveredTotalPage" d:Text="100"/>
+                                </TextBlock>
+                                <Button x:Name="contentRevenueNextButton"
+                                        Width="25" Height="25"
+                                        Click="contentRevenueNextButton_Click"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                    <Button.Content>
+                                        <Image Source="/Images/next.png"
+                                               Height="16"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!--Statistics-->
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Text="Statistics" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBlock VerticalAlignment="Center" Text="Day" Foreground="White" FontSize="18" FontWeight="Medium" Padding="0,0,10,0"/>
+                                        <DatePicker Name="driverStatisticsDayDatePicker" SelectedDate="2022-12-26" VerticalAlignment="Center" BorderBrush="Transparent" Padding="2"></DatePicker>
+                                        <Button Content="See" Width="50" Height="21" Margin="10,0,0,0"
+                                                Click="driverSeeStatisticsDay_Click"/>
+                                    </StackPanel>
+                                    <!--Amount of orders-->
+                                    <Border Grid.Row="2"
+                                                Width="1000"
+                                                HorizontalAlignment="Left">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                                <GradientStop Color="#439A97" Offset="0"/>
+                                                <GradientStop Color="#62B6B7" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <StackPanel Orientation="Vertical">
+                                            <DockPanel LastChildFill="False">
+                                                <TextBlock Text="Amount Of Orders"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20"/>
+                                            </DockPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="0" Name="tbl_amountOfOrdersDay"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="42,0,10,30"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                    <!--Amount of orders-->
+                                    <Border Grid.Row="4"
+                                                Width="1000"
+                                                HorizontalAlignment="Left">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                                <GradientStop Color="#ffb703" Offset="0"/>
+                                                <GradientStop Color="#fb8500" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <StackPanel Orientation="Vertical">
+                                            <DockPanel LastChildFill="False">
+                                                <TextBlock Text="Revenue"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20"/>
+                                            </DockPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="$"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                                <TextBlock Text="0"
+                                                           Name="tbl_revenueDay"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 30"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBlock VerticalAlignment="Center" Text="Month" Foreground="White" FontSize="18" FontWeight="Medium" Padding="0,0,10,0"/>
+                                        <DatePicker Name="driverStatisticsMonthDatePicker" SelectedDate="2022-12-26" VerticalAlignment="Center" BorderBrush="Transparent" Padding="2"></DatePicker>
+                                        <Button Content="See" Width="50" Height="21" Margin="10,0,0,0"
+                                                Click="driverSeeStatisticsMonth_Click"/>
+                                    </StackPanel>
+                                    <!--Amount of orders-->
+                                    <Border Grid.Row="2"
+                                                Width="1000"
+                                                HorizontalAlignment="Left">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                                <GradientStop Color="#439A97" Offset="0"/>
+                                                <GradientStop Color="#62B6B7" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <StackPanel Orientation="Vertical">
+                                            <DockPanel LastChildFill="False">
+                                                <TextBlock Text="Amount Of Orders"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20"/>
+                                            </DockPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="0"
+                                                           Name="tbl_amountOfOrdersMonth"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="42,0,10,30"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                    <!--Revenue-->
+                                    <Border Grid.Row="4"
+                                                Width="1000"
+                                                HorizontalAlignment="Left">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0" >
+                                                <GradientStop Color="#ffb703" Offset="0"/>
+                                                <GradientStop Color="#fb8500" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <StackPanel Orientation="Vertical">
+                                            <DockPanel LastChildFill="False">
+                                                <TextBlock Text="Revenue"
+                                                       FontSize="18" FontWeight="Medium" Foreground="White"
+                                                       VerticalAlignment="Center"
+                                                       Margin="20"/>
+                                            </DockPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="$"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="20, 0, 10, 10"/>
+                                                <TextBlock Text="0"
+                                                           Name="tbl_revenueMonth"
+                                                       FontSize="25" FontWeight="Medium" Foreground="White"
+                                                       Margin="0, 0, 10, 30"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ContentControl>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
